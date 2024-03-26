@@ -1,12 +1,11 @@
 import os
 
-from flask import Flask, jsonify
+from flask import Flask
 from flask_smorest import Api
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 
 from db import db
-import models
 
 from resources.album import blp as AlbumBlueprint
 

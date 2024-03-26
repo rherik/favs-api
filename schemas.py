@@ -1,21 +1,21 @@
 from marshmallow import Schema, fields
 
 class AlbumSchema(Schema):
-    id = fields.Str(dump_only=True)
+    id = fields.Int(dump_only=True)
     foto = fields.Str(required=True)
     name = fields.Str(required=True)
     kind = fields.Str(required=True)
     creator = fields.Str(required=True)
     release_date = fields.Str(required=True)
     description = fields.Str(required=True)
-    rate = fields.Integer(required=True)
+    rate = fields.Int(required=True)
 
 class AlbumUpdateSchema(Schema):
-    foto = fields.Str()
-    name = fields.Str()
-    kind = fields.Str()
-    creator = fields.Str()
-    release_date = fields.Str()
-    description = fields.Str()
-    rate = fields.Integer()
+    foto = fields.Str(required=False)
+    name = fields.Str(required=False)
+    kind = fields.Str(required=False)
+    creator = fields.Str(required=False)
+    release_date = fields.Str(required=False)
+    description = fields.Str(required=False)
+    rate = fields.Int(required=False)
 

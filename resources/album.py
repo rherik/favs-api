@@ -2,6 +2,7 @@ from flask import jsonify
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+from .tratamento import retorna_arquivo
 
 from db import db
 from models import AlbumModel
@@ -30,7 +31,7 @@ class Album(MethodView):
     @blp.arguments(AlbumUpdateSchema)
     @blp.response(200, AlbumSchema)
     def patch(self, album_data, album_id):
-        # Checa se há um album com esse nome no banco de dados
+        # Checa se há um album com esse id no banco de dados
         album = AlbumModel.query.get(album_id)
         if album:
             # Laço for para atribuir o valor à chave certa
@@ -54,7 +55,20 @@ class AlbunsList(MethodView):
     @blp.response(201, AlbumSchema)
     # insert a new album to database
     def post(self, album_data):
-        album = AlbumModel(**album_data)
+        # chamar a função retorna_arquivo aqui e passar o retorno para a coluna a album.foto
+        # Ou jogar a função tratamento para o frontend
+        #album = AlbumModel(**album_data)
+        #fotoTratada = retorna_arquivo(arq=album_data['foto'])
+        album = AlbumModel()
+        album.name = album_data['name']
+        #album.foto = fotoTratada
+        album.foto = album_data['foto']
+        album.kind = album_data['kind']
+        album.creator = album_data['creator']
+        album.release_date = album_data['release_date']
+        album.description = album_data['description']
+        album.rate = album_data['rate']
+
         db_album_name = AlbumModel.query.filter_by(name=album_data['name']).first()
         if db_album_name:
             abort(400, message="An album with this name already exists.")

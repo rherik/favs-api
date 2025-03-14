@@ -9,7 +9,6 @@
 ## Tarefas
 
 - Criar tabela creator
-- Criar função de armazenar foto com boto3
 
 ### Ao atualizar tabela(models/albuns.py)
 
